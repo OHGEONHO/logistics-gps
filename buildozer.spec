@@ -46,7 +46,7 @@ android.minapi = 21
 android.wakelock = True
 
 # (list) 지원 아키텍처 (최신 폰 대응을 위해 arm64-v8a 포함)
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a
 
 # (bool) 백업 허용
 android.allow_backup = True
