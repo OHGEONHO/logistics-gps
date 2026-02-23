@@ -22,10 +22,9 @@ jobs:
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # 빌드 전 청소 후, 한 가지 아키텍처만 집중 빌드
-          buildozer android clean
+          # clean 명령어를 제외하고 바로 빌드 시작
           yes | buildozer -v android debug
-        
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
