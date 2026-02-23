@@ -4,21 +4,21 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04 # 호환성이 좋은 버전으로 고정
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4 # 최신 버전으로 변경
+      - uses: actions/checkout@v4
 
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
+        # 더 안정적인 공식 라이브러리 계열의 액션으로 교체
+        uses: GearSnd/buildozer-action@v2
         with:
           buildozer_version: master
           command: buildozer android debug
           repository_visibility: public
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4 # 에러 원인 해결 (v3 -> v4)
+        uses: actions/upload-artifact@v4
         with:
-          name: LogisticsGPS-Package
+          name: LogisticsGPS-APK
           path: bin/*.apk
-          retention-days: 3 # 파일 보관 기간 설정
