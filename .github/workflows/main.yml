@@ -12,13 +12,18 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip build-essential git python3 python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good libsqlite3-dev sqlite3 libgmp-dev libmpc-dev libmpfr-dev libssl-dev bzip2 libbz2-dev liblzma-dev libffi-dev libgdbm-dev libncursesw5-dev libreadline-dev uuid-dev libopenjp2-7-dev libtiff5-dev
+          # 충돌 위험이 있는 라이브러리를 제외한 빌드 필수 도구만 설치
+          sudo apt install -y python3-pip build-essential git python3 python3-dev \
+          libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
+          zlib1g-dev libsqlite3-dev sqlite3 libssl-dev bzip2 libbz2-dev \
+          liblzma-dev libffi-dev libgdbm-dev libncursesw5-dev \
+          libreadline-dev uuid-dev libopenjp2-7-dev libtiff5-dev
           pip3 install --user --upgrade Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # 빌드 시작 (권한 에러 방지를 위해 직접 실행)
+          # 라이브러리 설치 및 SDK 다운로드를 자동 승인하며 빌드 시작
           yes | buildozer -v android debug
 
       - name: Upload APK
